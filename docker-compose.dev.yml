@@ -1,0 +1,13 @@
+# Development overrides: docker compose -f docker-compose.yml -f docker-compose.dev.yml up --build
+services:
+  db:
+    ports: ["127.0.0.1:5432:5432"]   # loopback only
+  backend:
+    environment:
+      ENVIRONMENT: development
+      COOKIE_SECURE: "false"
+      CORS_ORIGINS: http://localhost:5173
+    volumes:
+      - ./backend:/app
+    command: sh -c "alembic upgrade head && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports: ["127.0.0.1:8000:8000"]

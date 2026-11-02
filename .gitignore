@@ -1,0 +1,6 @@
+.env
+backups/*.sql.gz
+__pycache__/
+node_modules/
+frontend/dist/*
+!frontend/dist/index.html
