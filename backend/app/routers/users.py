@@ -1,3 +1,5 @@
+import uuid
+
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy import select
 from sqlalchemy.orm import Session
@@ -19,9 +21,15 @@ def _role(db: Session, name: str) -> Role:
 
 
 @router.get("/users", response_model=list[UserOut])
-def list_users(db: Session = Depends(get_db), _: User = Depends(current_user)):
+def list_users(include_inactive: bool = False, db: Session = Depends(get_db), user: User = Depends(current_user)):
     # all household members can see each other (needed for assignment pickers)
-    return [UserOut.of(u) for u in db.scalars(select(User).where(User.is_active).order_by(User.full_name))]
+    q = select(User).order_by(User.full_name)
+    if include_inactive:
+        if user.role.name != "admin":
+            raise HTTPException(403, "Administrator access required")
+    else:
+        q = q.where(User.is_active)
+    return [UserOut.of(u) for u in db.scalars(q)]
 
 
 @router.post("/users", response_model=UserOut, status_code=201)
@@ -56,7 +64,7 @@ def update_me(body: UserUpdateIn, db: Session = Depends(get_db), user: User = De
 
 
 @router.patch("/users/{user_id}", response_model=UserOut)
-def admin_update_user(user_id: str, body: AdminUserUpdateIn, db: Session = Depends(get_db),
+def admin_update_user(user_id: uuid.UUID, body: AdminUserUpdateIn, db: Session = Depends(get_db),
                       admin: User = Depends(require_admin)):
     u = db.get(User, user_id)
     if not u:

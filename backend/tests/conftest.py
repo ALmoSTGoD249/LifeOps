@@ -1,7 +1,7 @@
 import os, tempfile
 _tmp = tempfile.mkdtemp()
-os.environ.update(DATABASE_URL=f"sqlite:///{_tmp}/test.db", SECRET_KEY="test", COOKIE_SECURE="false",
-                  ADMIN_EMAIL="admin@example.com", ADMIN_PASSWORD="correct-horse-battery", ENVIRONMENT="test")
+os.environ.update(UPLOAD_DIR=os.path.join(_tmp, "uploads"), DATABASE_URL=f"sqlite:///{_tmp}/test.db", SECRET_KEY="test", COOKIE_SECURE="false",
+                  ADMIN_EMAIL="admin@example.com", ADMIN_PASSWORD="correct-horse-battery", ENVIRONMENT="test", SCHEDULER_ENABLED="false")
 import pytest
 from fastapi.testclient import TestClient
 from app import db as dbmod

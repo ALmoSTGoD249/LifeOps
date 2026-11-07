@@ -14,6 +14,11 @@ class Settings(BaseSettings):
     admin_email: str = ""
     admin_password: str = ""
     admin_name: str = "Admin"
+    upload_dir: str = "/data/uploads"
+    encryption_key: str = ""  # optional; defaults to SECRET_KEY. Changing it makes stored secrets unreadable.
+    scheduler_enabled: bool = True
+    scheduler_interval_minutes: int = 15
+    max_upload_mb: int = 10
     login_rate_limit: int = 5  # attempts
     login_rate_window_seconds: int = 300
 

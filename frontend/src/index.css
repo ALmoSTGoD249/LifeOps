@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+:root, [data-theme="dark"] {
+  --bg: #121316; --surface: #1a1c20; --surface-2: #22252a; --line: #2c2f35;
+  --text: #e9e7e2; --muted: #9a9a96; --accent: #7c9cff; --accent-fg: #0e1220;
+  --danger: #ff7a7a; color-scheme: dark;
+}
+[data-theme="light"] {
+  --bg: #f6f5f2; --surface: #ffffff; --surface-2: #efeeea; --line: #dedcd6;
+  --text: #1b1c1f; --muted: #6b6b66; --accent: #4a6df0; --accent-fg: #ffffff;
+  --danger: #c93c3c; color-scheme: light;
+}
+
+@theme inline {
+  --color-bg: var(--bg); --color-surface: var(--surface); --color-surface2: var(--surface-2);
+  --color-line: var(--line); --color-ink: var(--text); --color-muted: var(--muted);
+  --color-accent: var(--accent); --color-accentfg: var(--accent-fg); --color-danger: var(--danger);
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+html, body, #root { height: 100%; }
+body { background: var(--bg); color: var(--text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* Markdown content (knowledge base). react-markdown renders no raw HTML. */
+.md { font-size: 0.9rem; line-height: 1.65; }
+.md > * + * { margin-top: 0.85em; }
+.md h1 { font-size: 1.35rem; font-weight: 600; margin-top: 1.4em; }
+.md h2 { font-size: 1.15rem; font-weight: 600; margin-top: 1.3em; }
+.md h3 { font-size: 1rem; font-weight: 600; margin-top: 1.2em; }
+.md ul { list-style: disc; padding-left: 1.4em; } .md ol { list-style: decimal; padding-left: 1.4em; }
+.md li + li { margin-top: 0.25em; }
+.md a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
+.md code { font-family: var(--font-mono); font-size: 0.85em; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 0.1em 0.35em; }
+.md pre { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 0.85em 1em; overflow-x: auto; }
+.md pre code { background: none; border: 0; padding: 0; }
+.md blockquote { border-left: 3px solid var(--line); padding-left: 1em; color: var(--muted); }
+.md hr { border-color: var(--line); } .md table { border-collapse: collapse; } .md th, .md td { border: 1px solid var(--line); padding: 0.35em 0.7em; }

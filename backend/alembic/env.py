@@ -3,6 +3,13 @@ from sqlalchemy import create_engine
 from app.config import get_settings
 from app.db import Base
 import app.models  # noqa: F401  (register tables)
+import app.models_incidents  # noqa: F401
+import app.models_tasks  # noqa: F401
+import app.models_catalog  # noqa: F401
+import app.models_requests  # noqa: F401
+import app.models_assets  # noqa: F401
+import app.models_maintenance  # noqa: F401
+import app.models_kb  # noqa: F401
 
 target_metadata = Base.metadata
 
