@@ -12,20 +12,20 @@
   color-scheme: dark;
 
   /* Core surfaces */
-  --bg: #151814;
-  --surface: #1d221d;
-  --surface-2: #252c25;
-  --surface-3: #2c342b;
-  --line: #394337;
+  --bg: #191c18;
+  --surface: #20241f;
+  --surface-2: #292e27;
+  --surface-3: #343a31;
+  --line: #3b4237;
 
   /* Typography */
-  --text: #eef0e8;
-  --muted: #a4ad9f;
-  --subtle: #7f897b;
+  --text: #f1efe6;
+  --muted: #b0b2a7;
+  --subtle: #858b7e;
 
   /* Brand */
-  --accent: #a8bc92;
-  --accent-hover: #b9cba7;
+  --accent: #9caf88;
+  --accent-hover: #b0c49a;
   --accent-fg: #171b15;
   --sage-soft: rgba(168, 188, 146, .14);
 
@@ -36,6 +36,8 @@
   --warning-soft: rgba(229, 185, 107, .14);
   --danger: #ee7868;
   --danger-strong: #e8412c;
+  --brand-tomato: #e8412c;
+  --brand-tomato-soft: rgba(232, 65, 44, .13);
   --danger-soft: rgba(238, 120, 104, .14);
   --info: #8db6c8;
   --info-soft: rgba(141, 182, 200, .14);
@@ -63,18 +65,18 @@
 [data-theme="light"] {
   color-scheme: light;
 
-  --bg: #f4f3ed;
-  --surface: #fffefa;
-  --surface-2: #eeede5;
-  --surface-3: #e6e8de;
-  --line: #d8d9ce;
+  --bg: #f3f0e7;
+  --surface: #fbf9f2;
+  --surface-2: #ebe9df;
+  --surface-3: #e2e4d8;
+  --line: #d7d7ca;
 
-  --text: #252820;
-  --muted: #6f756a;
-  --subtle: #8a9084;
+  --text: #292b26;
+  --muted: #6f7168;
+  --subtle: #898b80;
 
   --accent: #71865d;
-  --accent-hover: #5e744b;
+  --accent-hover: #5f754e;
   --accent-fg: #ffffff;
   --sage-soft: rgba(113, 134, 93, .12);
 
@@ -84,6 +86,8 @@
   --warning-soft: rgba(152, 98, 13, .11);
   --danger: #bd4638;
   --danger-strong: #c63d2d;
+  --brand-tomato: #e8412c;
+  --brand-tomato-soft: rgba(232, 65, 44, .10);
   --danger-soft: rgba(189, 70, 56, .10);
   --info: #3e718a;
   --info-soft: rgba(62, 113, 138, .10);
@@ -392,4 +396,39 @@ main .grid.place-items-center.px-6.py-14 {
   main li {
     transform: none !important;
   }
+}
+
+
+/* V2.1 brand refinement: portfolio palette, shared across both themes. */
+.lifeops-nav-link {
+  transition: color var(--motion-fast) var(--ease-standard),
+              background-color var(--motion-fast) var(--ease-standard),
+              box-shadow var(--motion-fast) var(--ease-standard);
+}
+.lifeops-nav-link:not([aria-current="page"]):hover {
+  color: var(--brand-tomato);
+}
+.lifeops-nav-link[aria-current="page"] {
+  color: var(--text);
+}
+.lifeops-nav-link[aria-current="page"]:hover {
+  color: var(--brand-tomato);
+}
+.lifeops-nav-link:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Incident KPI: neutral card, selective tomato emphasis only. */
+.metric-card--incident .metric-icon {
+  color: var(--brand-tomato);
+}
+.metric-card--incident .metric-value {
+  color: var(--brand-tomato);
+}
+.metric-card--incident:hover {
+  border-color: color-mix(in srgb, var(--brand-tomato) 58%, var(--line));
+}
+.metric-card--incident:hover .metric-arrow {
+  color: var(--brand-tomato);
 }

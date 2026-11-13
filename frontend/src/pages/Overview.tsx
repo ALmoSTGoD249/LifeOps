@@ -23,12 +23,12 @@ const tiles = [
 function Metric({ t }: { t: (typeof tiles)[number] }) {
   const q = useQuery(count(t.path));
   return (
-    <Link to={t.to} className="group block rounded-xl border border-line bg-surface p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-surface2/70">
+    <Link to={t.to} className={`metric-card group block rounded-xl border border-line bg-surface p-4 transition-all duration-200 hover:-translate-y-0.5 hover:border-accent/40 hover:bg-surface2/70 ${t.label === "Open incidents" ? "metric-card--incident" : ""}`}>
       <div className="flex items-center justify-between">
-        <span className={`grid size-9 place-items-center rounded-lg bg-surface2 ${t.tone}`}><t.icon className="size-[18px]" /></span>
-        <ArrowUpRight className="size-4 text-muted/60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
+        <span className={`metric-icon grid size-9 place-items-center rounded-lg bg-surface2 ${t.tone}`}><t.icon className="size-[18px]" /></span>
+        <ArrowUpRight className="metric-arrow size-4 text-muted/60 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
       </div>
-      <p className="mt-4 font-mono text-[1.8rem] font-semibold leading-none tracking-tight tabular-nums">
+      <p className={`metric-value mt-4 font-mono text-[1.8rem] font-semibold leading-none tracking-tight tabular-nums ${t.label === "Open incidents" ? "text-danger" : ""}`}>
         {q.isLoading ? "…" : q.isError ? "—" : q.data}
       </p>
       <p className="mt-2 text-sm font-medium text-ink">{t.label}</p>

@@ -73,7 +73,7 @@ function NavList({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: (
             {!collapsed && <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted/60">{group.label}</p>}
             {items.map((n) => (
               <NavLink key={n.path} to={n.path} end={n.path === "/"} onClick={onNavigate} title={collapsed ? n.label : undefined}
-                className={({ isActive }) => cx("flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] transition-colors duration-150", isActive ? "bg-surface2 text-ink shadow-[inset_2px_0_0_var(--accent)]" : "text-muted hover:bg-surface2/60 hover:text-ink", collapsed && "justify-center px-0")}>
+                className={({ isActive }) => cx("lifeops-nav-link flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] transition-colors duration-150", isActive ? "bg-surface2 text-ink shadow-[inset_2px_0_0_var(--accent)]" : "text-muted hover:bg-surface2/60", collapsed && "justify-center px-0")}>
                 <n.icon className="size-[17px] shrink-0" />{!collapsed && <span>{n.label}</span>}
               </NavLink>
             ))}
