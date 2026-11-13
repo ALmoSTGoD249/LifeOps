@@ -1,4 +1,5 @@
 let csrf = "";
+const API_BASE = "/lifeops/api";
 export const setCsrf = (t: string) => { csrf = t; };
 
 export class ApiError extends Error {
@@ -23,7 +24,7 @@ export async function api<T>(path: string, opts: { method?: string; body?: unkno
   if (method !== "GET") headers["X-CSRF-Token"] = csrf;
   let res: Response;
   try {
-    res = await fetch("/api" + path, { method, headers, credentials: "same-origin", body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined });
+    res = await fetch(API_BASE + path, { method, headers, credentials: "same-origin", body: opts.body !== undefined ? JSON.stringify(opts.body) : undefined });
   } catch {
     throw new ApiError(0, "Cannot reach the server. Check your connection.");
   }
@@ -37,7 +38,7 @@ export async function apiUpload<T>(path: string, file: File): Promise<T> {
   const fd = new FormData();
   fd.append("file", file);
   let res: Response;
-  try { res = await fetch("/api" + path, { method: "POST", headers: { "X-CSRF-Token": csrf }, credentials: "same-origin", body: fd }); }
+  try { res = await fetch(API_BASE + path, { method: "POST", headers: { "X-CSRF-Token": csrf }, credentials: "same-origin", body: fd }); }
   catch { throw new ApiError(0, "Cannot reach the server. Check your connection."); }
   const data = await res.json().catch(() => null);
   if (!res.ok) throw new ApiError(res.status, detail(data?.detail));

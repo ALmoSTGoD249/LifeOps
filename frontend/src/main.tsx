@@ -11,7 +11,7 @@ const client = new QueryClient({ defaultOptions: { queries: { retry: 1, refetchO
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={client}>
-      <BrowserRouter><AuthProvider><App /></AuthProvider></BrowserRouter>
+      <BrowserRouter basename="/lifeops"><AuthProvider><App /></AuthProvider></BrowserRouter>
     </QueryClientProvider>
   </StrictMode>,
 );
