@@ -33,8 +33,8 @@ export function Select(p: SelectHTMLAttributes<HTMLSelectElement>) {
 
 export function Card({ title, action, children, className }: { title?: string; action?: ReactNode; children: ReactNode; className?: string }) {
   return (
-    <section className={cx("rounded-xl border border-line bg-surface", className)}>
-      {title && <header className="flex items-center justify-between border-b border-line px-5 py-3"><h2 className="text-sm font-medium">{title}</h2>{action}</header>}
+    <section className={cx("lifeops-card rounded-xl border border-line bg-surface", className)}>
+      {title && <header className="lifeops-card-header flex items-center justify-between border-b border-line px-5 py-3"><h2 className="text-sm font-medium">{title}</h2>{action}</header>}
       <div className="p-5">{children}</div>
     </section>
   );

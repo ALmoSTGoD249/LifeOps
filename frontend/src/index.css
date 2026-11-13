@@ -213,3 +213,183 @@ a {
     transition-duration: .01ms !important;
   }
 }
+
+
+/* -------------------------------------------------------------------------- */
+/* LifeOps V2 — module-wide visual refinement                                 */
+/* Presentation only: no data, routing, API, or workflow behaviour changes.   */
+/* -------------------------------------------------------------------------- */
+
+:root {
+  --card-shadow: 0 1px 2px rgba(0, 0, 0, .10), 0 10px 28px rgba(0, 0, 0, .08);
+  --card-shadow-hover: 0 12px 32px rgba(0, 0, 0, .16);
+}
+
+[data-theme="light"] {
+  --card-shadow: 0 1px 2px rgba(35, 42, 30, .04), 0 8px 24px rgba(35, 42, 30, .045);
+  --card-shadow-hover: 0 12px 28px rgba(35, 42, 30, .09);
+}
+
+/* Page titles: stronger hierarchy without making dense operational screens loud. */
+main h1 {
+  letter-spacing: -.035em;
+  line-height: 1.18;
+}
+
+main h2 {
+  letter-spacing: -.018em;
+}
+
+main p {
+  text-wrap: pretty;
+}
+
+/* Shared panels, including list wrappers, detail sections and admin cards. */
+main section.rounded-xl.border,
+main article.rounded-xl.border,
+main a.rounded-xl.border.bg-surface {
+  box-shadow: var(--card-shadow);
+  transition: border-color var(--motion-base) var(--ease-standard),
+              box-shadow var(--motion-base) var(--ease-standard),
+              background-color var(--motion-base) var(--ease-standard);
+}
+
+main a.rounded-xl.border.bg-surface:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-1px);
+}
+
+/* Card headers read as a distinct, quiet section band. */
+main section > header {
+  min-height: 48px;
+  background: color-mix(in srgb, var(--surface-2) 28%, transparent);
+}
+
+main section > header h2 {
+  font-weight: 600;
+}
+
+/* Tables: clearer column headers, comfortable rows, consistent hover feedback. */
+main table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+main table thead {
+  background: color-mix(in srgb, var(--surface-2) 62%, transparent);
+}
+
+main table thead th {
+  padding-top: .8rem;
+  padding-bottom: .8rem;
+  color: var(--muted);
+  font-size: .69rem;
+  font-weight: 650;
+  letter-spacing: .045em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+main table tbody td {
+  border-color: color-mix(in srgb, var(--line) 78%, transparent);
+  vertical-align: middle;
+}
+
+main table tbody tr {
+  transition: background-color var(--motion-fast) ease;
+}
+
+main table tbody tr:hover {
+  background: color-mix(in srgb, var(--surface-2) 58%, transparent);
+}
+
+/* Search, filters and form controls: consistent focus and contrast. */
+main input:not([type="checkbox"]):not([type="radio"]),
+main select,
+main textarea {
+  transition: border-color var(--motion-fast) ease,
+              box-shadow var(--motion-fast) ease,
+              background-color var(--motion-fast) ease;
+}
+
+main input:focus,
+main select:focus,
+main textarea:focus {
+  border-color: var(--focus) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--focus) 17%, transparent);
+  outline: none;
+}
+
+main input::placeholder,
+main textarea::placeholder {
+  color: var(--subtle);
+}
+
+/* Tabs and segmented filters retain their existing state logic, gain clarity. */
+main button.rounded-lg.px-3.py-1\.5.text-sm {
+  min-height: 34px;
+  transition: color var(--motion-fast) ease,
+              background-color var(--motion-fast) ease,
+              border-color var(--motion-fast) ease;
+}
+
+/* Catalog and knowledge cards get a calmer hover affordance. */
+main button.group.rounded-xl,
+main a.rounded-xl.border.border-line.bg-surface {
+  transition: transform var(--motion-base) var(--ease-standard),
+              border-color var(--motion-base) var(--ease-standard),
+              box-shadow var(--motion-base) var(--ease-standard);
+}
+
+main button.group.rounded-xl:hover {
+  border-color: color-mix(in srgb, var(--accent) 62%, var(--line));
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+/* Kanban lanes and task cards gain depth without changing drag/drop behaviour. */
+main li[draggable="true"] {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, .12);
+  transition: border-color var(--motion-fast) ease,
+              box-shadow var(--motion-fast) ease,
+              transform var(--motion-fast) ease;
+}
+
+main li[draggable="true"]:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--line));
+  box-shadow: var(--card-shadow);
+}
+
+/* Modal surfaces and empty states feel more intentional. */
+[role="dialog"] {
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .32);
+}
+
+main .grid.place-items-center.px-6.py-14 {
+  min-height: 220px;
+}
+
+@media (max-width: 640px) {
+  main table thead th {
+    font-size: .64rem;
+  }
+
+  main section > header {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  main section > div {
+    min-width: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  main section,
+  main article,
+  main a,
+  main button,
+  main li {
+    transform: none !important;
+  }
+}

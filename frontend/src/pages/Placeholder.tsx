@@ -14,9 +14,9 @@ export default function Placeholder({ item }: { item: NavItem }) {
 
 export function PageHeader({ title, subtitle }: { title: string; subtitle?: string }) {
   return (
-    <div className="mb-6">
-      <h1 className="text-xl font-semibold tracking-tight">{title}</h1>
-      {subtitle && <p className="mt-1 text-sm text-muted">{subtitle}</p>}
+    <div className="lifeops-page-header mb-6">
+      <h1 className="text-2xl font-semibold tracking-tight sm:text-[1.7rem]">{title}</h1>
+      {subtitle && <p className="mt-1.5 max-w-3xl text-sm leading-relaxed text-muted">{subtitle}</p>}
     </div>
   );
 }
