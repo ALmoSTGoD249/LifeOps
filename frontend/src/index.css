@@ -1,42 +1,215 @@
 @import "tailwindcss";
 
-:root, [data-theme="dark"] {
-  --bg: #121316; --surface: #1a1c20; --surface-2: #22252a; --line: #2c2f35;
-  --text: #e9e7e2; --muted: #9a9a96; --accent: #7c9cff; --accent-fg: #0e1220;
-  --danger: #ff7a7a; color-scheme: dark;
+/*
+ * LifeOps Design System v1
+ * Product family: Maity / LifeOps
+ * Personality: operational clarity, approachable collaboration.
+ * Dark-first default; user preference continues to be controlled by prefs.ts.
+ */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Core surfaces */
+  --bg: #151814;
+  --surface: #1d221d;
+  --surface-2: #252c25;
+  --surface-3: #2c342b;
+  --line: #394337;
+
+  /* Typography */
+  --text: #eef0e8;
+  --muted: #a4ad9f;
+  --subtle: #7f897b;
+
+  /* Brand */
+  --accent: #a8bc92;
+  --accent-hover: #b9cba7;
+  --accent-fg: #171b15;
+  --sage-soft: rgba(168, 188, 146, .14);
+
+  /* Semantic states */
+  --success: #8ebc91;
+  --success-soft: rgba(142, 188, 145, .13);
+  --warning: #e5b96b;
+  --warning-soft: rgba(229, 185, 107, .14);
+  --danger: #ee7868;
+  --danger-strong: #e8412c;
+  --danger-soft: rgba(238, 120, 104, .14);
+  --info: #8db6c8;
+  --info-soft: rgba(141, 182, 200, .14);
+
+  /* Interaction */
+  --focus: #b7cc9f;
+  --overlay: rgba(8, 11, 8, .66);
+  --shadow: 0 16px 48px rgba(0, 0, 0, .24);
+
+  /* Typography */
+  --font-ui: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-code: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Shape and motion */
+  --radius-sm: 6px;
+  --radius-md: 9px;
+  --radius-lg: 13px;
+  --radius-xl: 18px;
+  --motion-fast: 120ms;
+  --motion-base: 180ms;
+  --motion-slow: 260ms;
+  --ease-standard: cubic-bezier(.2, .7, .2, 1);
 }
+
 [data-theme="light"] {
-  --bg: #f6f5f2; --surface: #ffffff; --surface-2: #efeeea; --line: #dedcd6;
-  --text: #1b1c1f; --muted: #6b6b66; --accent: #4a6df0; --accent-fg: #ffffff;
-  --danger: #c93c3c; color-scheme: light;
+  color-scheme: light;
+
+  --bg: #f4f3ed;
+  --surface: #fffefa;
+  --surface-2: #eeede5;
+  --surface-3: #e6e8de;
+  --line: #d8d9ce;
+
+  --text: #252820;
+  --muted: #6f756a;
+  --subtle: #8a9084;
+
+  --accent: #71865d;
+  --accent-hover: #5e744b;
+  --accent-fg: #ffffff;
+  --sage-soft: rgba(113, 134, 93, .12);
+
+  --success: #367c4b;
+  --success-soft: rgba(54, 124, 75, .10);
+  --warning: #98620d;
+  --warning-soft: rgba(152, 98, 13, .11);
+  --danger: #bd4638;
+  --danger-strong: #c63d2d;
+  --danger-soft: rgba(189, 70, 56, .10);
+  --info: #3e718a;
+  --info-soft: rgba(62, 113, 138, .10);
+
+  --focus: #71865d;
+  --overlay: rgba(25, 29, 23, .48);
+  --shadow: 0 16px 48px rgba(36, 40, 31, .12);
 }
 
 @theme inline {
-  --color-bg: var(--bg); --color-surface: var(--surface); --color-surface2: var(--surface-2);
-  --color-line: var(--line); --color-ink: var(--text); --color-muted: var(--muted);
-  --color-accent: var(--accent); --color-accentfg: var(--accent-fg); --color-danger: var(--danger);
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface2: var(--surface-2);
+  --color-line: var(--line);
+  --color-ink: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accentfg: var(--accent-fg);
+  --color-danger: var(--danger);
+  --font-sans: var(--font-ui);
+  --font-mono: var(--font-code);
 }
 
-html, body, #root { height: 100%; }
-body { background: var(--bg); color: var(--text); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-::-webkit-scrollbar { width: 10px; height: 10px; }
-::-webkit-scrollbar-thumb { background: var(--line); border-radius: 8px; }
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  background: var(--bg);
+  scrollbar-color: var(--line) var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background-color var(--motion-slow) var(--ease-standard),
+              color var(--motion-slow) var(--ease-standard);
+}
+
+::selection {
+  color: var(--accent-fg);
+  background: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+  accent-color: var(--accent);
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line);
+  border: 2px solid var(--bg);
+  border-radius: 999px;
+}
+
+/* Shared semantic utility hooks for future status badges and callouts. */
+.status-success { color: var(--success); background: var(--success-soft); }
+.status-warning { color: var(--warning); background: var(--warning-soft); }
+.status-danger { color: var(--danger); background: var(--danger-soft); }
+.status-info { color: var(--info); background: var(--info-soft); }
 
 /* Markdown content (knowledge base). react-markdown renders no raw HTML. */
-.md { font-size: 0.9rem; line-height: 1.65; }
-.md > * + * { margin-top: 0.85em; }
+.md { font-size: .9rem; line-height: 1.65; }
+.md > * + * { margin-top: .85em; }
 .md h1 { font-size: 1.35rem; font-weight: 600; margin-top: 1.4em; }
 .md h2 { font-size: 1.15rem; font-weight: 600; margin-top: 1.3em; }
 .md h3 { font-size: 1rem; font-weight: 600; margin-top: 1.2em; }
-.md ul { list-style: disc; padding-left: 1.4em; } .md ol { list-style: decimal; padding-left: 1.4em; }
-.md li + li { margin-top: 0.25em; }
+.md ul { list-style: disc; padding-left: 1.4em; }
+.md ol { list-style: decimal; padding-left: 1.4em; }
+.md li + li { margin-top: .25em; }
 .md a { color: var(--accent); text-decoration: underline; text-underline-offset: 2px; }
-.md code { font-family: var(--font-mono); font-size: 0.85em; background: var(--surface-2); border: 1px solid var(--line); border-radius: 6px; padding: 0.1em 0.35em; }
-.md pre { background: var(--surface-2); border: 1px solid var(--line); border-radius: 10px; padding: 0.85em 1em; overflow-x: auto; }
+.md code {
+  font-family: var(--font-code);
+  font-size: .85em;
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  padding: .1em .35em;
+}
+.md pre {
+  background: var(--surface-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: .85em 1em;
+  overflow-x: auto;
+}
 .md pre code { background: none; border: 0; padding: 0; }
-.md blockquote { border-left: 3px solid var(--line); padding-left: 1em; color: var(--muted); }
-.md hr { border-color: var(--line); } .md table { border-collapse: collapse; } .md th, .md td { border: 1px solid var(--line); padding: 0.35em 0.7em; }
+.md blockquote { border-left: 3px solid var(--accent); padding-left: 1em; color: var(--muted); }
+.md hr { border-color: var(--line); }
+.md table { border-collapse: collapse; }
+.md th, .md td { border: 1px solid var(--line); padding: .35em .7em; }
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
