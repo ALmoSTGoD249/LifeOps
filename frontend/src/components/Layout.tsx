@@ -53,16 +53,33 @@ function Palette({ onClose }: { onClose: () => void }) {
   );
 }
 
+const navGroups = [
+  { label: "Workspace", paths: ["/", "/my-work"] },
+  { label: "Operations", paths: ["/incidents", "/catalog", "/requests", "/tasks"] },
+  { label: "Household", paths: ["/assets", "/maintenance", "/knowledge"] },
+  { label: "System", paths: ["/activity", "/admin"] },
+];
+
 function NavList({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: () => void }) {
   const { user } = useAuth();
+  const visible = NAV.filter((n) => !n.adminOnly || user?.role === "admin");
   return (
-    <nav className="flex-1 space-y-0.5 overflow-auto p-2">
-      {NAV.filter((n) => !n.adminOnly || user?.role === "admin").map((n) => (
-        <NavLink key={n.path} to={n.path} end={n.path === "/"} onClick={onNavigate} title={collapsed ? n.label : undefined}
-          className={({ isActive }) => cx("flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors", isActive ? "bg-surface2 text-ink" : "text-muted hover:bg-surface2/60 hover:text-ink", collapsed && "justify-center px-0")}>
-          <n.icon className="size-[18px] shrink-0" />{!collapsed && <span>{n.label}</span>}
-        </NavLink>
-      ))}
+    <nav className="flex-1 space-y-4 overflow-auto px-2 py-3">
+      {navGroups.map((group) => {
+        const items = visible.filter((n) => group.paths.includes(n.path));
+        if (!items.length) return null;
+        return (
+          <section key={group.label} className="space-y-1">
+            {!collapsed && <p className="px-3 pb-1 text-[10px] font-semibold uppercase tracking-[0.14em] text-muted/60">{group.label}</p>}
+            {items.map((n) => (
+              <NavLink key={n.path} to={n.path} end={n.path === "/"} onClick={onNavigate} title={collapsed ? n.label : undefined}
+                className={({ isActive }) => cx("flex items-center gap-3 rounded-lg px-3 py-2 text-[13px] transition-colors duration-150", isActive ? "bg-surface2 text-ink shadow-[inset_2px_0_0_var(--accent)]" : "text-muted hover:bg-surface2/60 hover:text-ink", collapsed && "justify-center px-0")}>
+                <n.icon className="size-[17px] shrink-0" />{!collapsed && <span>{n.label}</span>}
+              </NavLink>
+            ))}
+          </section>
+        );
+      })}
     </nav>
   );
 }
@@ -127,7 +144,7 @@ export default function Layout() {
             </Menu>
           </div>
         </header>
-        <main className="flex-1 overflow-auto px-4 py-6 pb-24 sm:px-8 md:pb-8"><div className="mx-auto max-w-6xl"><Outlet /></div></main>
+        <main className="flex-1 overflow-auto px-4 py-6 pb-24 sm:px-8 md:pb-8"><div className="mx-auto w-full max-w-[1440px]"><Outlet /></div></main>
       </div>
 
       <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t border-line bg-surface/90 pb-[env(safe-area-inset-bottom)] backdrop-blur-md md:hidden">
